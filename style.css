@@ -1,0 +1,287 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    touch-action: none;
+}
+
+body {
+    background-color: #0b0d14;
+    color: #ffffff;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Splash Intro Screen */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0b10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.8s ease-out;
+}
+
+#intro-logo {
+    width: 180px;
+    height: auto;
+    animation: pulse 1.5s infinite alternate;
+}
+
+.intro-text {
+    margin-top: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    color: #7a8b9e;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.96); opacity: 0.8; }
+    100% { transform: scale(1.04); opacity: 1; }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Main Container */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+}
+
+/* Header */
+.game-header {
+    width: 100%;
+    text-align: center;
+}
+
+.header-top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.game-title {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+    color: #4cd964;
+    text-shadow: 0 0 10px rgba(76, 217, 100, 0.4);
+}
+
+/* Info Button */
+.icon-btn {
+    position: absolute;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #3a3f58;
+    background-color: #1a1d2a;
+    color: #007aff;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background-color: #007aff;
+    color: #ffffff;
+    border-color: #007aff;
+    box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+}
+
+.stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #151824;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid #282c3f;
+    margin-top: 6px;
+}
+
+.stat {
+    font-weight: bold;
+    font-size: 0.95rem; 
+    color: #a0aabf;
+}
+
+.stat span {
+    color: #ffffff;
+}
+
+/* 6x6 Board Layout */
+.board-wrapper {
+    position: relative;
+    padding: 10px;
+    background-color: #0d0f17;
+    border-radius: 16px;
+    border: 2px solid #2a2e40;
+}
+
+.grid-board {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, 54px);
+    grid-template-rows: repeat(6, 54px);
+    gap: 5px;
+}
+
+.cell {
+    width: 54px;
+    height: 54px;
+    background-color: #1a1d2a;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px currentColor;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Overlay Canvas */
+#line-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    background: #1e2235;
+    color: #ffffff;
+    border: 1px solid #3a3f58;
+    padding: 10px 24px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background: #2b304a;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+/* Info Modal Overlay */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #151824;
+    border: 2px solid #2a2e40;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #a0aabf;
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+}
+
+.modal-content h2 {
+    color: #4cd964;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+}
+
+.instructions-list {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #d1d5db;
+}
+
+.instructions-list .bullet {
+    color: #007aff;
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.modal-btn {
+    width: 100%;
+    background-color: #007aff;
+    border-color: #007aff;
+}
+
+.modal-btn:hover {
+    background-color: #0056b3;
+}

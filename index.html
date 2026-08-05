@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipe Connect - AnB GAMES</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicons/favicon.svg" />
+    <link rel="shortcut icon" href="./favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="./favicons/site.webmanifest" />
+</head>
+<body>
+
+    <div id="intro-screen">
+        <img src="AnB_GAMES.png" alt="AnB GAMES Logo" id="intro-logo">
+        <p class="intro-text">MADE BY AnB GAMES</p>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <header class="game-header">
+            <div class="header-top">
+                <h1 class="game-title">PIPE CONNECT</h1>
+                <button id="info-btn" class="icon-btn" aria-label="How to Play">i</button>
+            </div>
+            <div class="stats-bar">
+                <div class="stat">DOTS: <span id="connected-display">0/0</span></div>
+                <div class="stat">SPACE: <span id="filled-display">0/36</span></div>
+            </div>
+        </header>
+
+        <main class="board-wrapper">
+            <div id="grid-board" class="grid-board">
+                <canvas id="line-canvas"></canvas>
+            </div>
+        </main>
+
+        <footer class="controls">
+            <button id="reset-btn" class="btn">RESET</button>
+            <button id="skip-btn" class="btn">SKIP</button>
+        </footer>
+    </div>
+
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="close-modal-btn" class="close-btn">&times;</button>
+            <h2>HOW TO PLAY</h2>
+            <ul class="instructions-list">
+                <li><span class="bullet">•</span> <strong>Connect Dots:</strong> Drag from one colored dot to another of the same color.</li>
+                <li><span class="bullet">•</span> <strong>No Overlaps:</strong> Pipes cannot cross each other or pass through foreign dots.</li>
+                <li><span class="bullet">•</span> <strong>Fill the Grid:</strong> To complete a level, you must connect all dot pairs <em>and</em> cover all 36 spaces on the board!</li>
+            </ul>
+            <button id="modal-ok-btn" class="btn modal-btn">GOT IT!</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
