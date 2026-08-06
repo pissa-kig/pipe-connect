@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('line-canvas');
     const ctx = canvas.getContext('2d');
 
-    const levelDisplay = document.getElementById('level-display');
     const connectedDisplay = document.getElementById('connected-display');
     const filledDisplay = document.getElementById('filled-display');
     const resetBtn = document.getElementById('reset-btn');
@@ -60,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function resizeCanvas() {
-        // Exact board dimensions without offset padding
         const boardSize = (GRID_SIZE * CELL_SIZE) + ((GRID_SIZE - 1) * GAP);
         canvas.width = boardSize;
         canvas.height = boardSize;
@@ -83,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 1. BOARD GENERATOR (Enforces non-adjacent same-color endpoints)
+    // 1. BOARD GENERATOR
     // -------------------------------------------------------------
     function generatePerfectBoard() {
         let validLayout = false;
@@ -120,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let p1 = seg[0];
                 let p2 = seg[seg.length - 1];
 
-                // Check if matching endpoints are adjacent (Manhattan distance == 1)
                 const dist = Math.abs(p1.r - p2.r) + Math.abs(p1.c - p2.c);
                 if (dist <= 1) {
                     hasAdjacentPair = true;
@@ -130,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 tempEndpoints[colorId] = [p1, p2];
             }
 
-            // Reject board if matching dots are neighboring/adjacent
             if (hasAdjacentPair) continue;
 
             let hasTrappedDot = false;
@@ -266,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 3. USER INPUT & ACCURATE TOUCH/MOUSE DETECT
+    // 3. USER INPUT
     // -------------------------------------------------------------
     function getCellFromCoords(x, y) {
         const rect = gridBoard.getBoundingClientRect();
@@ -352,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 4. ACCURATE CANVAS DRAWING
+    // 4. CANVAS RENDERING
     // -------------------------------------------------------------
     function drawPaths() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -369,7 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.lineJoin = 'round';
 
             path.forEach((pt, idx) => {
-                // Exact center alignment without padding offset
                 const x = pt.c * (CELL_SIZE + GAP) + CELL_SIZE / 2;
                 const y = pt.r * (CELL_SIZE + GAP) + CELL_SIZE / 2;
                 if (idx === 0) ctx.moveTo(x, y);
@@ -408,7 +403,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (connectedCount === totalColors && totalColors > 0 && allTilesFilled) {
             setTimeout(() => {
                 currentLevel++;
-                levelDisplay.textContent = currentLevel;
                 initGame();
             }, 300);
         }
@@ -448,6 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resetBtn.addEventListener('click', clearUserPaths);
     skipBtn.addEventListener('click', () => {
+        currentLevel++;
         initGame();
     });
 });
